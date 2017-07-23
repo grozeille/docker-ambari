@@ -1,4 +1,4 @@
-FROM hortonworks/ambari-base:7.2-v7
+FROM grozeille/ambari-base:7.2-v8
 MAINTAINER Hortonworks
 
 # add ambari repo
