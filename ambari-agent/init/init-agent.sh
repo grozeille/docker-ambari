@@ -2,6 +2,7 @@
 
 : ${CLOUD_PLATFORM:="none"}
 : ${USE_CONSUL_DNS:="true"}
+: ${USE_RANCHER:="false"}
 : ${AMBARI_SERVER_ADDR:="ambari-8080.service.consul"}
 
 [[ "TRACE" ]] && set -x
@@ -45,10 +46,17 @@ reorder_dns_lookup() {
   fi
 }
 
+update_public_ip() {
+  if [ "$USE_RANCHER" == "true" ]; then
+    echo 'curl http://rancher-metadata/latest/self/host/hostname' > /etc/ambari-agent/conf/public-hostname.sh
+  fi
+}
+
 main() {
   [[ "$USE_CONSUL_DNS" == "true" ]] && local_nameserver
   ambari_server_addr
   reorder_dns_lookup
+  update_public_ip
 }
 
 main "$@"
