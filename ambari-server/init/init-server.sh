@@ -49,6 +49,9 @@ reorder_dns_lookup() {
 }
 
 config_remote_jdbc() {
+  # configure jdbc drivers
+  ambari-server setup --silent --jdbc-db=postgres --jdbc-driver=/tmp/postgres-jdbc-driver.jar
+  ambari-server setup --silent --jdbc-db=mysql --jdbc-driver=/tmp/mysql-jdbc-driver.jar
   if [ -z "$POSTGRES_DB" ]
   then
     ambari-server setup --silent --java-home $JAVA_HOME
@@ -59,8 +62,6 @@ config_remote_jdbc() {
     wait_for_db
     PGPASSWORD=bigdata psql -h $POSTGRES_DB -U ambari postgres < /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
   fi
-  # configure jdbc driver for hiveserver2
-  ambari-server setup --silent --jdbc-db=postgres --jdbc-driver=/var/lib/ambari-server/resources/postgres-jdbc-driver.jar
 }
 
 # https://issues.apache.org/jira/browse/AMBARI-14627
