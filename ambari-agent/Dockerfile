@@ -31,3 +31,23 @@ ADD init/ambari-agent.service /etc/systemd/system/ambari-agent.service
 RUN systemctl enable ambari-agent
 
 RUN echo DefaultEnvironment=\"JAVA_HOME=$JAVA_HOME\" \"HADOOP_CLASSPATH=$HADOOP_CLASSPATH\" >> /etc/systemd/system.conf
+
+RUN groupadd -g 1000 hadoop && \
+groupadd -g 1001 hdfs && \
+groupadd -g 1002 zookeeper && \
+groupadd -g 1003 yarn && \
+groupadd -g 1004 mapred && \
+groupadd -g 1005 livy && \
+groupadd -g 1006 spark && \
+useradd -u 1001 -g 1000 -G hadoop,hdfs hdfs && \
+useradd -u 1002 -g 1000 -G hadoop zookeeper && \
+useradd -u 1003 -g 1000 -G hadoop yarn && \
+useradd -u 1004 -g 1000 -G hadoop mapred && \
+useradd -u 1005 -g 1000 -G hadoop livy && \
+useradd -u 1006 -g 1000 -G hadoop spark && \
+useradd -u 1007 -g 1000 -G hadoop hive && \
+useradd -u 1008 -g 1000 -G hadoop hcat && \
+useradd -u 1009 -g 1000 -G hadoop,users tez && \
+useradd -u 1010 -g 1000 -G hadoop ams && \
+useradd -u 1011 -g 1000 -G hadoop,users ambari-qa && \
+useradd -u 1012 -g 1000 -G hadoop,hdfs activity_analyzer
