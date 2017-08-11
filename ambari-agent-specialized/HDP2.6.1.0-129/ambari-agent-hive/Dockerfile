@@ -34,4 +34,5 @@ tez \
 tez_hive2 \
 zookeeper \
 zookeeper-server \
+net-tools \
 && yum clean all

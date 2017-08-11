@@ -32,7 +32,7 @@ RUN yum install -y krb5-workstation && yum clean all
 RUN yum install -y initscripts && yum clean all
 
 # needed scripts for ambari stack
-RUN yum install -y which && yum clean all
+RUN yum install -y which net-tools && yum clean all
 
 RUN curl -o /usr/bin/jq http://stedolan.github.io/jq/download/linux64/jq && chmod +x /usr/bin/jq
 
